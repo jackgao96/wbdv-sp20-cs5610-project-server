@@ -14,7 +14,15 @@ public class Stock {
     private String name;
     private String symbol;
     private String category;
+    private String recommendation;
 
+    public String getRecommendation() {
+        return recommendation;
+    }
+
+    public void setRecommendation(String recommendation) {
+        this.recommendation = recommendation;
+    }
 
     public List<Watchlist> getWatchlists() {
         return watchlists;
