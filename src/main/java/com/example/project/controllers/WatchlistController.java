@@ -3,10 +3,7 @@ package com.example.project.controllers;
 import com.example.project.models.Watchlist;
 import com.example.project.services.WatchlistService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
@@ -36,5 +33,22 @@ public class WatchlistController {
             return result;
         }
     }
-
+    @PostMapping("/api/users/{uid}/watchlists")
+    public Watchlist createWatchlistForUser(@PathVariable("uid") String uid, @RequestBody Watchlist wl){
+        int uuid;
+        try{
+            uuid = Integer.parseInt(uid);
+            return service.createWatchlistForUser(uuid, wl);
+        }catch (NumberFormatException e){
+            return null;
+        }
+    }
+    @DeleteMapping("/api/watchlists/{wid}")
+    public int deleteWatchlist(@PathVariable("wid") Integer wid){
+        return service.deleteWatchlist(wid);
+    }
+    @PutMapping("/api/watchlists/{wid}")
+    public int updateWatchlist(@PathVariable("wid") Integer wid, @RequestBody Watchlist wl){
+        return service.updateWatchlist(wid,wl);
+    }
 }

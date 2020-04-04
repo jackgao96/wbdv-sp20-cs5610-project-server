@@ -1,5 +1,6 @@
 package com.example.project.services;
 
+import com.example.project.models.Stock;
 import com.example.project.models.User;
 import com.example.project.models.Watchlist;
 import com.example.project.repositories.UserRepository;
@@ -30,7 +31,32 @@ public class WatchlistService {
         }else{
             return tempuser.getWatchlists();
         }
-
     }
-
+    public Watchlist createWatchlistForUser(Integer uid, Watchlist wl){
+        User user = userRepository.findUserById(uid);
+        if (user==null){return null;}
+        wl.setUser(user);
+        return watchlistRepository.save(wl);
+    }
+    public int deleteWatchlist(Integer wid){
+        Watchlist wl = watchlistRepository.findWatchlistById(wid);
+        if(wl == null){
+            return 0;
+        }
+        for (Stock s : wl.getStocks()){
+            List<Watchlist> temp = s.getWatchlists();
+            temp.remove(wl);
+            s.setWatchlists(temp);
+        }
+        watchlistRepository.deleteById(wid);
+        return 1;
+    }
+    public int updateWatchlist(Integer wid, Watchlist wl){
+        Watchlist w = watchlistRepository.findWatchlistById(wid);
+        if (w==null){return 0;}
+        User u = w.getUser();
+        wl.setUser(u);
+        watchlistRepository.save(wl);
+        return 1;
+    }
 }

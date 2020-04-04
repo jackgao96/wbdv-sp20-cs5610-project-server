@@ -15,4 +15,10 @@ public interface StockRepository extends CrudRepository<Stock, Integer> {
     @Query("SELECT s FROM Stock s WHERE s.id=:sid")
     public Stock findStockById(@Param("sid") Integer sid);
 
+    @Query("SELECT s FROM Stock s WHERE s.category=:category")
+    public List<Stock> findStocksByCategory(@Param("category") String category);
+
+    @Query("SELECT s FROM Stock s WHERE s.symbol=:symbol")
+    public Stock findStockBySymbol(@Param("symbol") String symbol);
+
 }

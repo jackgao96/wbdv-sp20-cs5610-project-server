@@ -63,6 +63,6 @@ public class User {
     }
 
     private String ssn;
-    @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(mappedBy = "user")
     private List<Watchlist> watchlists;
 }
