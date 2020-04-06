@@ -18,6 +18,7 @@ public class UserService {
     @Autowired
     private WatchlistRepository watchlistRepository;
 
+
     public List<User> getAllUsers(){return (List<User>) userRepository.findAll(); }
 
     public User findUserById(Integer uid) {
