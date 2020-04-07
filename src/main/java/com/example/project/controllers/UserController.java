@@ -10,7 +10,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*",allowCredentials = "true")
 public class UserController {
     @Autowired
     UserService service;
