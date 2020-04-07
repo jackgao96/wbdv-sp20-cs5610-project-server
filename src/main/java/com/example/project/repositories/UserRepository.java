@@ -14,7 +14,7 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     @Query("SELECT u FROM User u WHERE u.username=:username")
     public Iterable<User> findUserByUserName(@Param("username") String u);
 
-    @Query("SELECT user FROM User user WHERE (user.username=:username AND user.password=:password) OR (user.email=:userName AND user.password=:password)")
+    @Query("SELECT user FROM User user WHERE (user.username=:username AND user.password=:password) OR (user.email=:username AND user.password=:password)")
     public User findUserByCredentials(
             @Param("username") String username,
             @Param("password") String password
