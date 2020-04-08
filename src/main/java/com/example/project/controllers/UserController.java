@@ -48,10 +48,24 @@ public class UserController {
         return profile;
     }
 
-    @PostMapping("/profile")
+    @GetMapping("/profile")
     public User profile(HttpSession session) {
         User profile = (User)session.getAttribute("profile");
-        return profile;
+        if(profile==null) {
+            User falseUser =new User();
+            falseUser.setUsername("CANNOT FIND");
+            return falseUser;
+        }
+        User returnusers=(repository.findUserByCredentials(profile.getUsername(), profile.getPassword()));
+        if(returnusers==null)
+        {
+            User falseUser =new User();
+            falseUser.setUsername("CANNOT FIND");
+            return falseUser;
+        }
+        else {
+            return returnusers;
+        }
     }
 
 
