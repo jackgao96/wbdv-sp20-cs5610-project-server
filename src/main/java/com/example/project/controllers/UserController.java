@@ -41,11 +41,18 @@ public class UserController {
         session.invalidate();
     }
     @PostMapping("/login")
-    public User login(HttpSession session,
-                      @RequestBody User user) {
+    public User login(@RequestBody User user,
+                      HttpSession session) {
         User profile = repository.findUserByCredentials(user.getUsername(), user.getPassword());
-        session.setAttribute("profile", profile);
-        return profile;
+        if(profile==null){
+            User falseUser =new User();
+            falseUser.setUsername("CANNOT FIND");
+            return falseUser;
+        }
+        else {
+            session.setAttribute("profile", user);
+            return profile;
+        }
     }
 
     @GetMapping("/profile")
