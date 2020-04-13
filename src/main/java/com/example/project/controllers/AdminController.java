@@ -35,7 +35,7 @@ public class AdminController {
         Admin profile = repository.findAdminByCredentials(user.getUsername(), user.getPassword());
             session.setAttribute("profile", user);
             return profile;
-        
+
     }
 
     @GetMapping("/admin/profile")
