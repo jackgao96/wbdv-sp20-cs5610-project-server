@@ -60,14 +60,14 @@ public class UserController {
         User profile = (User)session.getAttribute("profile");
         if(profile==null) {
             User falseUser =new User();
-            falseUser.setUsername("CANNOT FIND");
+            falseUser.setUsername("PLEASE LOGIN FIRST");
             return falseUser;
         }
         User returnusers=(repository.findUserByCredentials(profile.getUsername(), profile.getPassword()));
         if(returnusers==null)
         {
             User falseUser =new User();
-            falseUser.setUsername("CANNOT FIND");
+            falseUser.setUsername("PLEASE LOGIN FIRST");
             return falseUser;
         }
         else {

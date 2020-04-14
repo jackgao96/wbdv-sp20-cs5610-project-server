@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*",allowCredentials = "true",allowedHeaders = "*")
 public class StockController {
     @Autowired
     StockService service;
