@@ -13,6 +13,17 @@ public class User {
     private String password;
     private String email;
     private String type;
+    private String registertime;
+
+    public String getRegistertime() {
+        return registertime;
+    }
+
+    public void setRegistertime(String registertime) {
+        this.registertime = registertime;
+    }
+
+
 
     public String getPassword() {
         return password;
