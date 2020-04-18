@@ -54,7 +54,6 @@ public class UserController {
             return profile;
         }
     }
-
     @GetMapping("/profile")
     public User profile(HttpSession session) {
         User profile = (User)session.getAttribute("profile");
