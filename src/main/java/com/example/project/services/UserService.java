@@ -33,7 +33,6 @@ public class UserService {
         User user = userRepository.findUserById(uid);
         if(user==null){return 0;}
         List<Watchlist> templist = user.getWatchlists();
-        userRepository.deleteById(uid);
         for(Watchlist wl : templist){
             for (Stock s : wl.getStocks()){
                 List<Watchlist> temp = s.getWatchlists();
@@ -42,6 +41,7 @@ public class UserService {
             }
             watchlistRepository.deleteById(wl.getId());
         }
+        userRepository.deleteById(uid);
         return 1;
     }
     public int updateUser(Integer uid, User user){

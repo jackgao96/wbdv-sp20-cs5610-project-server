@@ -36,7 +36,7 @@ public class UserController {
     public int updateUser(@PathVariable("uid") Integer uid, @RequestBody User user){
         return service.updateUser(uid,user);
     }
-    @PostMapping("/logout")
+    @GetMapping("/logout")
     public void logout(HttpSession session) {
         session.invalidate();
     }
@@ -54,7 +54,6 @@ public class UserController {
             return profile;
         }
     }
-
     @GetMapping("/profile")
     public User profile(HttpSession session) {
         User profile = (User)session.getAttribute("profile");

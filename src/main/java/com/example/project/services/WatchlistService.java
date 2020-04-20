@@ -54,9 +54,9 @@ public class WatchlistService {
     public int updateWatchlist(Integer wid, Watchlist wl){
         Watchlist w = watchlistRepository.findWatchlistById(wid);
         if (w==null){return 0;}
-        User u = w.getUser();
-        wl.setUser(u);
-        watchlistRepository.save(wl);
+        w.setDescription(wl.getDescription());
+        w.setTitle(wl.getTitle());
+        watchlistRepository.save(w);
         return 1;
     }
 }
