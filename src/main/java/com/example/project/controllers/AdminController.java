@@ -32,9 +32,20 @@ public class AdminController {
     @PostMapping("/admin/login")
     public Admin login(@RequestBody Admin user,
                       HttpSession session) {
+
         Admin profile = repository.findAdminByCredentials(user.getUsername(), user.getPassword());
+        if(profile!=null) {
             session.setAttribute("profile", user);
             return profile;
+        }
+            else
+        {   Admin falseUser =new Admin();
+            //falseUser.setUsername("PLEASE LOGIN FIRST");
+                return falseUser;
+        }
+
+
+
 
     }
 
@@ -43,5 +54,8 @@ public class AdminController {
         Admin profile = (Admin)session.getAttribute("profile");
         Admin returnadmins = (repository.findAdminByCredentials(profile.getUsername(), profile.getPassword()));
             return returnadmins;
+
+
+
         }
     }
