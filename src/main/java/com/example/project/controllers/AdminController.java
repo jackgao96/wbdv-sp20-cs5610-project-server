@@ -13,15 +13,16 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @RestController
-@CrossOrigin(origins = "*",allowCredentials = "true",allowedHeaders = "*")
+@CrossOrigin(origins = "*", allowCredentials = "true", allowedHeaders = "*")
 public class AdminController {
 
     @Autowired
     AdminService service;
     @Autowired
     AdminRepository repository;
+
     @GetMapping("/api/admins")
-    public List<Admin> findAllUsers(){
+    public List<Admin> findAllUsers() {
         return service.getAllAdmin();
     }
 
@@ -29,33 +30,36 @@ public class AdminController {
     public void logout(HttpSession session) {
         session.invalidate();
     }
+
     @PostMapping("/admin/login")
     public Admin login(@RequestBody Admin user,
-                      HttpSession session) {
+                       HttpSession session) {
 
         Admin profile = repository.findAdminByCredentials(user.getUsername(), user.getPassword());
-        if(profile!=null) {
+        if (profile != null) {
             session.setAttribute("profile", user);
             return profile;
-        }
-            else
-        {   Admin falseUser =new Admin();
+        } else {
+            Admin falseUser = new Admin();
             //falseUser.setUsername("PLEASE LOGIN FIRST");
-                return falseUser;
+            return falseUser;
         }
-
-
 
 
     }
 
     @GetMapping("/admin/profile")
     public Admin profile(HttpSession session) {
-        Admin profile = (Admin)session.getAttribute("profile");
-        Admin returnadmins = (repository.findAdminByCredentials(profile.getUsername(), profile.getPassword()));
+        Admin profile = (Admin) session.getAttribute("profile");
+        if (profile !=null)
+        {
+            Admin returnadmins = (repository.findAdminByCredentials(profile.getUsername(), profile.getPassword()));
             return returnadmins;
-
-
-
+        }
+        else{
+            Admin falseUser = new Admin();
+            //falseUser.setUsername("PLEASE LOGIN FIRST");
+            return falseUser;
         }
     }
+}
